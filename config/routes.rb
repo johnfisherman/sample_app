@@ -2,6 +2,7 @@ SampleApp::Application.routes.draw do
   get "static_pages/home"
 
   # automatically creates named routes for use in the controllers and views
+  # This arranges both for a valid page at /help and a named route called help_path that returns the path to that page.
   match '/help',    to: 'static_pages#help'
   # matches ’/about’ and routes it to the about action in the StaticPages controller.
   match '/about',   to: 'static_pages#about'
