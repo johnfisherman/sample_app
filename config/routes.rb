@@ -1,4 +1,6 @@
 SampleApp::Application.routes.draw do
+  get "users/new"
+
   get "static_pages/home"
 
   # automatically creates named routes for use in the controllers and views
@@ -7,6 +9,7 @@ SampleApp::Application.routes.draw do
   # matches ’/about’ and routes it to the about action in the StaticPages controller.
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/signup', to: 'users#new'
   
   root to: 'static_pages#home'
 
