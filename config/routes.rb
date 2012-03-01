@@ -1,6 +1,6 @@
 SampleApp::Application.routes.draw do
-  get "users/new"
-
+  resources :users
+  
   get "static_pages/home"
 
   # automatically creates named routes for use in the controllers and views
