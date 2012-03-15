@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     # from the name attributes of the input tags (HTML side)
     @user = User.new(params[:user])
     if @user.save
+      sign_in @user
       # we can omit the user_path in the redirect, writing simply redirect_to @user to redirect to the user show page
       flash[:success] = "User created successfully! You are now one of us!"
       redirect_to @user
