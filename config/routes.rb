@@ -1,7 +1,13 @@
 SampleApp::Application.routes.draw do
   resources :users
-  
+  resources :sessions, only: [:new, :create, :destroy]
+
   get "static_pages/home"
+
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  # invoked using an HTTP DELETE request
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # automatically creates named routes for use in the controllers and views
   # This arranges both for a valid page at /help and a named route called help_path that returns the path to that page.
@@ -9,7 +15,6 @@ SampleApp::Application.routes.draw do
   # matches ’/about’ and routes it to the about action in the StaticPages controller.
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
-  match '/signup', to: 'users#new'
   
   root to: 'static_pages#home'
 

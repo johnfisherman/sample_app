@@ -12,6 +12,7 @@
 class User < ActiveRecord::Base
     attr_accessible :name, :email, :password, :password_confirmation
     has_secure_password
+    before_save :create_remember_token
     
     # presence always beats presents. And uses blank? method, too. So, :name = "   " is invalid.
     validates :name, presence: true, length: { maximum: 50}
@@ -19,5 +20,12 @@ class User < ActiveRecord::Base
     validates :email, presence: true, format: { with: valid_email_regex },
                       uniqueness: { case_sensitive: false }
     validates :password, length: { minimum: 6 }
+    
+    
+    private
+      # attribute remember token on user sign up
+      def create_remember_token
+        self.remember_token = SecureRandom.urlsafe_base64
+      end
     
 end
