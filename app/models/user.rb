@@ -12,6 +12,7 @@
 class User < ActiveRecord::Base
     attr_accessible :name, :email, :password, :password_confirmation
     has_secure_password
+    has_many :microposts, dependent: :destroy
     before_save :create_remember_token
     
     # presence always beats presents. And uses blank? method, too. So, :name = "   " is invalid.
@@ -20,6 +21,13 @@ class User < ActiveRecord::Base
     validates :email, presence: true, format: { with: valid_email_regex },
                       uniqueness: { case_sensitive: false }
     validates :password, length: { minimum: 6 }
+    
+    def feed
+      # This is preliminary. See "Following users" for the full implementation.
+      Micropost.where("user_id = ?", id)
+      # or, simply
+      # microposts
+    end
     
     
     private
